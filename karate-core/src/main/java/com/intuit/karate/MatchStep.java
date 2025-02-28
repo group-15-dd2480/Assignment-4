@@ -42,6 +42,7 @@ public class MatchStep {
             raw = raw.substring(4).trim();
         }
         boolean contains = false;
+        boolean within = false;
         boolean not = false;
         boolean only = false;
         boolean any = false;
@@ -53,15 +54,26 @@ public class MatchStep {
         if (lhsEndPos == -1) {
             lhsEndPos = raw.indexOf(" !contains");
         }
+        if (lhsEndPos != -1) {
+            contains = true;
+        } else {
+            lhsEndPos = raw.indexOf(" within");
+            if (lhsEndPos == -1) {
+                lhsEndPos = raw.indexOf(" !within");
+            }
+            if (lhsEndPos != -1) {
+                within = true;
+            }
+        }
         int searchPos = 0;
         int eqPos = raw.indexOf(" == ");
         if (eqPos == -1) {
             eqPos = raw.indexOf(" != ");
         }
-        if (lhsEndPos != -1 && (eqPos == -1 || eqPos > lhsEndPos)) {
+        if ((contains != within) && (eqPos == -1 || eqPos > lhsEndPos)) {
             contains = true;
             not = raw.charAt(lhsEndPos + 1) == '!';
-            searchPos = lhsEndPos + (not ? 10 : 9);
+            searchPos = lhsEndPos + (not ? 1 : 0) + (within ? 7 : 9);
             String anyOrOnlyOrDeep = raw.substring(searchPos).trim();
             if (anyOrOnlyOrDeep.startsWith("only deep")) {
                 int onlyPos = raw.indexOf(" only deep", searchPos);
@@ -117,7 +129,7 @@ public class MatchStep {
             path = null;
         }
         expected = StringUtils.trimToNull(raw.substring(searchPos));
-        type = getType(each, not, contains, only, any, deep);
+        type = getType(each, not, contains, within, only, any, deep);
     }
 
     private static int min(int a, int b) {
@@ -130,7 +142,7 @@ public class MatchStep {
         return Math.min(a, b);
     }
 
-    private static Match.Type getType(boolean each, boolean not, boolean contains, boolean only, boolean any, boolean deep) {
+    private static Match.Type getType(boolean each, boolean not, boolean contains, boolean within, boolean only, boolean any, boolean deep) {
         if (each) {
             if (contains) {
                 if (only) {
@@ -163,6 +175,9 @@ public class MatchStep {
                 return Match.Type.CONTAINS_DEEP;
             }
             return not ? Match.Type.NOT_CONTAINS : Match.Type.CONTAINS;
+        }
+        if (within) {
+            return not ? Match.Type.NOT_WITHIN : Match.Type.WITHIN;
         }
         return not ? Match.Type.NOT_EQUALS : Match.Type.EQUALS;
     }

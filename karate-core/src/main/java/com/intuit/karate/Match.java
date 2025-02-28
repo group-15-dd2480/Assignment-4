@@ -23,7 +23,6 @@
  */
 package com.intuit.karate;
 
-import com.intuit.karate.graal.JsEngine;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -36,7 +35,10 @@ import java.util.UUID;
 import java.util.function.Function;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
 import org.w3c.dom.Node;
+
+import com.intuit.karate.graal.JsEngine;
 
 /**
  *
@@ -61,8 +63,20 @@ public class Match {
         EACH_NOT_CONTAINS,
         EACH_CONTAINS_ONLY,
         EACH_CONTAINS_ANY,
-        EACH_CONTAINS_DEEP
+        EACH_CONTAINS_DEEP,
+        WITHIN,
+        NOT_WITHIN
 
+    }
+
+    static boolean flipValueExpected(Type type) {
+        switch (type) {
+            case WITHIN:
+            case NOT_WITHIN:
+                return true;
+            default:
+                return false;
+        }
     }
 
     static final Result PASS = new Result(true, null);
@@ -437,6 +451,14 @@ public class Match {
 
         public Result isEachContainingAny(Object expected) {
             return is(Type.EACH_CONTAINS_ANY, expected);
+        }
+
+        public Result isWithin(Object expected) {
+            return is(Type.WITHIN, expected);
+        }
+
+        public Result isNotWithin(Object expected) {
+            return is(Type.NOT_WITHIN, expected);
         }
 
     }

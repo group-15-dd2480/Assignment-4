@@ -23,8 +23,6 @@
  */
 package com.intuit.karate;
 
-import com.intuit.karate.graal.JsEngine;
-import com.intuit.karate.graal.JsValue;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -38,6 +36,9 @@ import java.util.Map;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import com.intuit.karate.graal.JsEngine;
+import com.intuit.karate.graal.JsValue;
 
 /**
  *
@@ -72,8 +73,13 @@ public class MatchOperation {
 
     private MatchOperation(JsEngine js, Match.Context context, Match.Type type, Match.Value actual, Match.Value expected, boolean matchEachEmptyAllowed) {
         this.type = type;
-        this.actual = actual;
-        this.expected = expected;
+        if (Match.flipValueExpected(this.type)) {
+            this.actual = expected;
+            this.expected = actual;
+        } else {
+            this.actual = actual;
+            this.expected = expected;
+        }
         this.matchEachEmptyAllowed = matchEachEmptyAllowed;
         if (context == null) {
             if (js == null) {
@@ -142,9 +148,11 @@ public class MatchOperation {
             case EACH_NOT_CONTAINS:
             case NOT_EQUALS:
             case EACH_NOT_EQUALS:
+            case NOT_WITHIN:
                 return 2;
             case CONTAINS:
             case EACH_CONTAINS:
+            case WITHIN:
                 return 1;
             default:
                 return 0;
@@ -199,6 +207,8 @@ public class MatchOperation {
                 case CONTAINS_DEEP:
                 case CONTAINS_ONLY_DEEP:
                 case CONTAINS_ANY_DEEP:
+                case WITHIN:
+                case NOT_WITHIN:
                     // don't tamper with strings on the RHS that represent arrays or objects
                     if (!expected.isList() && !(expected.isString() && expected.isArrayObjectOrReference())) {
                         MatchOperation mo = new MatchOperation(context, type, actual, new Match.Value(Collections.singletonList(expected.getValue())), matchEachEmptyAllowed);
@@ -232,6 +242,8 @@ public class MatchOperation {
                         return macroEqualsExpected(expStr) ? fail("is equal") : pass();
                     case NOT_CONTAINS:
                         return macroEqualsExpected(expStr) ? fail("actual contains expected") : pass();
+                    case NOT_WITHIN:
+                        return macroEqualsExpected(expStr) ? fail("actual within expected") : pass();
                     default:
                         return macroEqualsExpected(expStr) ? pass() : fail(null);
                 }
@@ -251,6 +263,10 @@ public class MatchOperation {
                 return actualContainsExpected() ? pass() : fail("actual does not contain expected");
             case NOT_CONTAINS:
                 return actualContainsExpected() ? fail("actual contains expected") : pass();
+            case WITHIN:
+                return actualContainsExpected() ? pass() : fail("actual is not within expected");
+            case NOT_WITHIN:
+                return actualContainsExpected() ? fail("actual is within expected") : pass();
             default:
                 throw new RuntimeException("unexpected match type: " + type);
         }
