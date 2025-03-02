@@ -71,6 +71,7 @@ public class ScenarioEngine {
     public static final String RESPONSE = "response";
     public static final String RESPONSE_HEADERS = "responseHeaders";
     public static final String RESPONSE_STATUS = "responseStatus";
+    public static final String RESPONSE_STATUS_TEXT = "responseStatusText";
     private static final String RESPONSE_BYTES = "responseBytes";
     private static final String RESPONSE_COOKIES = "responseCookies";
     private static final String RESPONSE_TIME = "responseTime";
@@ -650,6 +651,7 @@ public class ScenarioEngine {
         setHiddenVariable(REQUEST_TIME_STAMP, startTime);
         setVariable(RESPONSE_TIME, responseTime);
         setVariable(RESPONSE_STATUS, response.getStatus());
+        setVariable(RESPONSE_STATUS_TEXT, response.getStatusText());
         setVariable(RESPONSE, body);
         if (config.isLowerCaseResponseHeaders()) {
             setVariable(RESPONSE_HEADERS, response.getHeadersWithLowerCaseNames());
@@ -714,6 +716,13 @@ public class ScenarioEngine {
         if (status != response.getStatus()) {
             // make sure log masking is applied
             String message = HttpLogger.getStatusFailureMessage(status, config, httpRequest, response);
+            setFailedReason(new KarateException(message));
+        }
+    }
+
+    public void statusText(String text) {
+        if (!text.equals(response.getStatusText())) {
+            String message = HttpLogger.getStatusTextFailureMessage(text, config, httpRequest, response);
             setFailedReason(new KarateException(message));
         }
     }

@@ -188,20 +188,22 @@ public class MockHandler implements ServerHandler {
                 Scenario scenario = fs.getScenario();
                 if (isMatchingScenario(scenario, engine)) {
                     Map<String, Object> configureHeaders;
-                    Variable response, responseStatus, responseHeaders, responseDelay;
+                    Variable response, responseStatus, responseStatusText, responseHeaders, responseDelay;
                     ScenarioActions actions = new ScenarioActions(engine);
                     Result result = executeScenarioSteps(feature, runtime, scenario, actions);
                     engine.mockAfterScenario();
                     configureHeaders = engine.mockConfigureHeaders();
                     response = engine.vars.remove(ScenarioEngine.RESPONSE);
                     responseStatus = engine.vars.remove(ScenarioEngine.RESPONSE_STATUS);
+                    responseStatusText = engine.vars.remove(ScenarioEngine.RESPONSE_STATUS_TEXT);
                     responseHeaders = engine.vars.remove(ScenarioEngine.RESPONSE_HEADERS);
                     responseDelay = engine.vars.remove(RESPONSE_DELAY);
                     globals.putAll(engine.shallowCloneVariables());
-                    Response res = new Response(200);
+                    Response res = new Response(200, "OK");
                     if (result.isFailed()) {
                         response = new Variable(result.getError().getMessage());
                         responseStatus = new Variable(500);
+                        responseStatusText = new Variable("Internal Server Error");
                     } else {
                         if (corsEnabled) {
                             res.setHeader("Access-Control-Allow-Origin", "*");
@@ -225,6 +227,9 @@ public class MockHandler implements ServerHandler {
                     }
                     if (responseStatus != null) {
                         res.setStatus(responseStatus.getAsInt());
+                    }
+                    if (responseStatusText != null) {
+                        res.setStatusText(responseStatusText.getAsString());
                     }
                     if (prevEngine != null) {
                         ScenarioEngine.set(prevEngine);

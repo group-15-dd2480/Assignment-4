@@ -114,7 +114,7 @@ public class RequestHandler implements ServerHandler {
                         } else {
                             rb.locationHeader(signInPath());
                         }
-                        return rb.buildWithStatus(302);
+                        return rb.buildWithStatus(302, "Found");
                     }
                 }
             }

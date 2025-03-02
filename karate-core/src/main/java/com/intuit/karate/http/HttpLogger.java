@@ -113,6 +113,20 @@ public class HttpLogger {
                 + ", response: \n" + rawResponse;
     }
 
+    public static String getStatusTextFailureMessage(String expected, Config config, HttpRequest request, Response response) {
+        String url = request.getUrl();
+        HttpLogModifier logModifier = logModifier(config, url);
+        String maskedUrl = logModifier == null ? url : logModifier.uri(url);
+        String rawResponse = response.getBodyAsString();
+        if (rawResponse != null && logModifier != null) {
+            rawResponse = logModifier.response(url, rawResponse);
+        }
+        long responseTime = request.getEndTime() - request.getStartTime();
+        return "status text was: " + response.getStatusText() + ", expected: " + expected
+                + ", response time in milliseconds: " + responseTime + ", url: " + maskedUrl
+                + ", response: \n" + rawResponse;
+    }
+
     public void logRequest(Config config, HttpRequest request) {
         requestCount++;
         String uri = request.getUrl();
