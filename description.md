@@ -45,71 +45,65 @@ Karate's architecture is modular, comprising several components that collectivel
 Below is a conceptual representation of Karate's architecture, illustrating the relationships and interactions between its core components:
 
 ```
-+-------------------+
-|                   |
-|   karate-core     |
-|                   |
-+---------+---------+
-          |
-          v
-+---------+---------+
-|                   |
-|   HTTP Clients    |
-|                   |
-| +-------+-------+ |
-| |               | |
-| | karate-apache | |
-| |               | |
-| +---------------+ |
-|                   |
-| +---------------+ |
-| |               | |
-| | karate-jersey | |
-| |               | |
-| +-------+-------+ |
-|                   |
-+---------+---------+
-          |
-          v
-+---------+---------+
-|                   |
-|   Mock Server     |
-|                   |
-|  +-------------+  |
-|  |             |  |
-|  | karate-netty|  |
-|  |             |  |
-|  +-------------+  |
-|                   |
-+---------+---------+
-          |
-          v
-+---------+---------+
-|                   |
-|   Integrations    |
-|                   |
-| +-------+-------+ |
-| |               | |
-| | karate-junit5 | |
-| |               | |
-| +---------------+ |
-|                   |
-| +---------------+ |
-| |               | |
-| | karate-gatling| |
-| |               | |
-| +-------+-------+ |
-|                   |
-| +---------------+ |
-| |               | |
-| | karate-robot  | |
-| |               | |
-| +---------------+ |
-|                   |
-+-------------------+
++-------------------------------------------------------------+
+|                          Karate                             |
+|                                                             |
+|   +------------------+      +------------------------+      |
+|   | karate-core      |      | karate-config          |      |
+|   | (Main Engine)    |      | (Configuration Layer)  |      |
+|   +------------------+      +------------------------+      |
+|            |                          |                     |
+|            v                          v                     |
+|   +---------------------------------------------------+     |
+|   |                  HTTP Clients                     |     |
+|   |  +----------------+      +-------------------+    |     |
+|   |  | karate-apache  | ---> | karate-jersey     |    |     |
+|   |  | (Apache HTTP)  |      | (Jersey Client)   |    |     |
+|   |  +----------------+      +-------------------+    |     |
+|   +---------------------------------------------------+     |
+|            |                                                |
+|            v                                                |
+|   +---------------------------------------------------+     |
+|   |                  Mock Server                      |     |
+|   |  +----------------+                               |     |
+|   |  | karate-netty   |                               |     |
+|   |  | (Netty Server) |                               |     |
+|   |  +----------------+                               |     |
+|   +---------------------------------------------------+     |
+|            |                                                |
+|            v                                                |
+|   +---------------------------------------------------+     |
+|   |                  Integrations                     |     |
+|   |  +----------------+      +-------------------+    |     |
+|   |  | karate-junit5  | ---> | karate-gatling    |    |     |
+|   |  | (JUnit Support)|      | (Load Testing)    |    |     |
+|   |  +----------------+      +-------------------+    |     |
+|   |  +----------------+                               |     |
+|   |  | karate-robot   |                               |     |
+|   |  | (UI Testing)   |                               |     |
+|   |  +----------------+                               |     |
+|   +---------------------------------------------------+     |
+|            |                                                |
+|            v                                                |
+|   +--------------------+      +---------------------+       |
+|   | karate-debug       |      | karate-extension    |       |
+|   | (Debugging Tools)  |      | (Custom Extensions) |       |
+|   +--------------------+      +---------------------+       |
+|                                                             |
++-------------------------------------------------------------+
+
 ```
 
-This diagram reflects Karate's modular architecture, highlighting how each component interacts to provide a cohesive and flexible testing framework. The central **karate-core** module serves as the backbone, supporting various functionalities through its integrations with HTTP clients, mock servers, and other testing tools. This design ensures that users can tailor Karate to their specific testing needs, selecting and integrating only the components relevant to their projects.
+This diagram reflects Karate's modular architecture, highlighting how each component interacts to provide a cohesive and flexible testing framework.
+The central **karate-core** module serves as the backbone,facilitating script execution and core functionalities.
+Surrounding this core are specialized modules that enhance Karate's flexibility:
+
+- **HTTP Clients (karate-apache and karate-jersey)**: Handle API interactions, allowing users to test HTTP-based services using different client implementations.
+- **Mock Server (karate-netty)**: Enables users to create simulated API endpoints, essential for isolated testing and reproducing complex scenarios.
+- **Integrations (karate-junit5, karate-gatling, and karate-robot)**: Extend Karate’s functionality to unit testing, performance testing, and UI automation, ensuring end-to-end coverage.
+- **Additional Extensions (karate-debug and karate-extension)**: Provide debugging tools and custom extensions, enhancing test diagnostics and adaptability.
+
+This design ensures that users can tailor Karate to their specific testing needs, selecting and integrating only the components relevant to their projects.
 
 By adopting this modular approach, Karate offers a scalable and adaptable solution for test automation, empowering teams to efficiently manage and execute tests across multiple domains.
 
