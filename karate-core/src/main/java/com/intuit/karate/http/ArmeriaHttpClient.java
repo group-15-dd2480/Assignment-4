@@ -102,7 +102,7 @@ public class ArmeriaHttpClient implements HttpClient, DecoratingHttpClientFuncti
             }
         }
         byte[] responseBody = ahr.content().isEmpty() ? Constants.ZERO_BYTES : ahr.content().array();
-        Response response = new Response(ahr.status().code(), responseHeaders, responseBody);
+        Response response = new Response(ahr.status().code(), ahr.status().codeAsText(), responseHeaders, responseBody);
         httpLogger.logResponse(config, request, response);
         return response;
     }

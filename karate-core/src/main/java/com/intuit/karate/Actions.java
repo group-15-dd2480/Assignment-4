@@ -135,6 +135,8 @@ public interface Actions {
 
     void status(int status);
 
+    void statusText(String text);
+
     void table(String name, List<Map<String, String>> table);
 
     void text(String name, String exp);

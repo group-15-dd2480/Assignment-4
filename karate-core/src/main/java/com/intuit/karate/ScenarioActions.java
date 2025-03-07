@@ -303,6 +303,12 @@ public class ScenarioActions implements Actions {
     }
 
     @Override
+    @When("^status text (.+)")
+    public void statusText(String text) {
+        engine.statusText(text);
+    }
+
+    @Override
     @When("^match (.+)(=|contains|any|only|deep)(.*)")
     public void match(String exp, String op1, String op2, String rhs) {
         if (op2 == null) {
