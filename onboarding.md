@@ -6,7 +6,7 @@ Due to our negative experiences with the previous repository chosen, we decided 
 
 The onboarding for Karate (in our eyes) was pretty simple. It used Maven, which we had used for the previous assignments, so building the entire project was as easy as running a simple Maven command. The build times where a bit longer than for our previous projects, which was a bit tedious, but in the end it went smoothly and all tests passed.
 
-Although we had never used Karate before, it was simple enough to get a surface-level understanding of what the project was for, which then helped when diving deeper into the project.
+Although we had never used Karate before, it was simple enough to get a surface-level understanding of what the project was for, which then helped when diving deeper into the project. However, the contribution guide was basically non-existent. The only information for potential contributors was what JDK versions are supported and that we should probably use an IDE (??). Some suggestions were made to use docker if one does not wish to install all the required tools on their host system, but other than these rather obvious pieces of information there was nothing else to help someone get started with contributing to the project.
 
 Altering the project did not result in any issues, and all tests, along with those added, ran without issues. This was a welcome change from what we experienced in the previous assignment.
 
