@@ -1,0 +1,82 @@
+@startuml
+
+skinparam dpi 300
+
++interface Actions {
+    statusText(String)
+}
+
++class ScenarioActions {
+    -ScenarioEngine engine
+    +statusText(String)
+}
+
++class ScenarioEngine {
+    +String RESPONSE_STATUS_TEXT = "responseStatusText"
+    -Response response
+    +statusText(String)
+    -httpInvokeOnce()
+}
+
++class HttpLogger {
+    +String getStatusTextFailureMessage(int, Config, HttpRequest, Response)
+}
+
++class MockHandler {
+    +Response handle(Request)
+    -ScenarioEngine initEngine(ScenarioRuntime, Map<String, Variable>, Request)
+}
+
++class ApacheHttpClient {
+    +Response invoke(HttpRequest)
+}
+
++class ArmeriaHttpClient {
+    +Response invoke(HttpRequest)
+}
+
++class Response {
+    -String statusText
+    -String STATUS_TEXT = "statusText"
+    +Response(int, String)
+    +Response(int, String, Map<String, List<String>>, byte[])
+    +Response(int, String, Map<String, List<String>>, ResourceType)
+    +String getStatusText()
+    +setStatusText(String)
+    +toMap()
+    +toString()
+    +putMember(String, Value)
+    +Object getMember(String)
+}
+
++class ResponseBuilder {
+    +Response buildWithStatus(int, String)
+}
+
++class AwsLambdaHandler {
+    -String STATUS_CODE_TEXT = "statusCodeText"
+    +handle(InputStream, OutputStream)
+}
+
++class RequestCycle {
+    #Response handle()
+}
+
++class RequestHandler {
+    +Response handle(Request)
+}
+
+Actions <|.. ScenarioActions
+ScenarioActions o-- ScenarioEngine : "has a"
+ScenarioEngine --> HttpLogger : "uses"
+ApacheHttpClient --> Response : "creates"
+ArmeriaHttpClient --> Response : "creates"
+MockHandler --> Response : "creates"
+ResponseBuilder --> Response : "creates"
+RequestHandler --> ResponseBuilder : "uses"
+RequestCycle --> ResponseBuilder : "uses"
+AwsLambdaHandler --> Response : "uses"
+MockHandler --> ScenarioEngine : "creates and uses"
+HttpLogger --> Response : "uses"
+
+@enduml
