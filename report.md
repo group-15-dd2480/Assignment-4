@@ -115,6 +115,14 @@ As we feel we are currently working well, there is no real obstacles for us to r
 
 Arguing about the benefits, drawbacks, and limitations of our work in the context of the SEMAT kernel, we can discuss the Work alpha. One drawback is that besides the repository owner and the one that made the issue, which can be seen as stakeholders, we also have the teachers and assistants grading our work. This includes additional tasks which is not directly beneficial to the other stakeholders. In this sense, the additional tasks we need to perform is detrimental for the open source contribution we are supposed to perform. One benefit of the additional tasks we need to perform is that they force us to better understand the requirements, which in turn is beneficial for the Work alpha. A limitation we have is the deadline. If we encounter delays, this might cause the work not to be finished, which to some extent is fine for the course stakeholders but not for the repo stakeholders, but also vice versa. We could focus on the work pertaining to the fix, or work pertaining to the assignment, but as we have more to lose on missing the expectations of our course stakeholders, inherently it is the repo stakeholders that will be negatively affected.
 
+### Experience gained
+
+As evidenced by the improvements in regards to the essence standard, we have indeed improved quite a bit from the previous projects. One of the experience gained has been more proficiency with the tools that have been common across all the assignments, such as GitHub, for example we have chosen to use the issue tracker to organize our work even through it was not explicitly required by the assignment.
+
+As for more specific experience gained, we have gained more knowledge about how more advanced testing frameworks work, and how they can make certain tasks easier over just pure JUnit5 unit tests. For example the DSL that karate uses can make it easier for non-technical people to write tests. We have also gained more knowledge in how a big project can be structured, with multiple modules, instead of a very monolithic codebase.
+
+We have also gained more insights into what is a bad example of contributor documentation, as our project had very lackluster documentation in that regards. So in some sense it has taught us the importance of such information as we had to struggle more to understand the code due to its absence.
+
 ### [Context](assignment/context.md)
 
 There were no big architectural choices to be made, nor design patterns that we had to decide on ourselves. Our issue mainly revolved around implementing a "sister" feature to an already existing one, namely whenever we were dealing with status codes we had to add the functionality to also work with status text.
