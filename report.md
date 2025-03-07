@@ -28,29 +28,105 @@ When we then started to alter the repo, several issues presented themselves, whi
 
 ## Effort spent
 
-Added last!!!
+### David
 
-For each team member, how much time was spent in
+- 1h: Meeting to discuss assignment
+- 1h: Meeting to select repository and issue
+- 0.5h: Issue selection: Trying to find a good issue
+- 0.5h: Lab guidance session
+- 1h: Issue selection: Compiling possible issues
+- 1h: Meeting to discuss assignment progress
+- 0.5h: Issue creation
+- 1h: Watched UML class diagram tutorial
+- 0.5h: Finding a tool that can generate UML class diagrams
+- 1h: Project and GitHub repository coordination
+- 1h: Creating UML class diagram
+- 1h: PR reviews and UML class diagram creation
+- 0.5h: UML class diagram creation
+- 0.5h: Debugging UML generation (entire diagram did not fit in output)
+- 1h: UML class diagram creation
+- 1.5h: Meeting to discuss progress in assignment (also coordinate remaining tasks)
+- 1h: Meeting to discuss description
+- 0.5h: Finalizing UML diagram and writing associated README
+- 0.5h: GitHub shenanigans (pushing own PR, reviewing other’s PRs)
+- 0.5h: Documented onboarding experience and compared it with our previous experiences
+- 0.5h: GitHub documentation, review and push
+- 0.5h: Essence evaluation and reflection
+- 1.5h: Confusing mess of different parts, description and SEMAT assessment
+- 1h: Writing report according to template
+- 0.5h: Discuss and add experience to report
 
-1. plenary discussions/meetings;
+### Francis
 
-2. discussions within parts of the group;
+- 1.5h: Meeting to discuss assignment
+- 1h: Meeting to select repository and issue
+- 0.5h: Forking and installing maven, verifying that tests run
+- 1.5h: Familiarizing with the repository
+- 1.5h: Attempting “within” keyword issue
+- 0.5h: Look at other possible issues.
+- 2h: Attempting response time text issue
+- 0.5h: Looking where the damn thing is actually tested
+- 2h: Attempt to down-grade karate-demo to a version that supports responding with HTTP/1.1 status text (tomcat bad)
+- 1h: Meeting to discuss assignment progress
+- 1h: More attempts at downgrading demo project
+- 1.5h: Meeting to discuss progress in assignment (also coordinate remaining tasks)
+- 0.5h: Help with looking through tests
+- 1h: Write about the general context of our changes
+- 0.5h: GitHub documentation, review and push
+- 0.5h: Essence evaluation and reflection
+- 0.5h: Help with writing documentation
+- 1.5h: Confusing mess of different parts, description and SEMAT assessment
+- 1h: Writing report according to template
+- 0.5h: Discuss and add experience to report
 
-3. reading documentation;
+### Ebrar
 
-4. configuration and setup;
+- 1.5h: Meeting to discuss assignment
+- 1h: Meeting to select repository and issue
+- 0.5h: Forking and creating a suitable environment
+- 2h: Familiarizing with the repository
+- 0.5h: Video about API Testing for karate
+- 1h: Experimenting with Karate features based on the video
+- 1h: Trying to find official architecture diagram
+- 1h: Finding relative documents as "Navigating the Brave New World of API Testing" for description of karate
+- 1h: Write the description
+- 0.5h: Worked on the pull request mishap and reverted a commit
+- 1h: Look at other possible issues
+- 1h: Improving description
+- 2h: Reading karate documentation
+- 1h: Improving the diagram and adding multiple information regarding the structure
+- 1h: Meeting to discuss description
+- 1h: Changing the description and adding examples of Karate usage
+- 0.5h: GitHub documentation, review and push
+- 0.5h: Essence evaluation and reflection
+- 1h: Confusing mess of different parts, description and SEMAT assessment
+- 1h: Writing report according to template
+- 0.5h: Discuss and add experience to report
 
-5. analyzing code/output;
+### Markus
 
-6. writing documentation;
-
-7. writing code;
-
-8. running code?
-
-For setting up tools and libraries (step 4), enumerate all dependencies
-you took care of and where you spent your time, if that time exceeds
-30 minutes.
+- 1.5h: Meeting to discuss assignment
+- 1h: Meeting to select repository and issue
+- 1h: Meeting to discuss assignment progress
+- 1.5h: Familiarizing with the code
+- 1h: Identifying requirements
+- 1h: Identified and wrote down requirements with descriptions
+- 1h: Wrote project plan
+- 1h: Improved project plan and requirements, cloned repository and made pr
+- 0.5h: Worked on pull request mishap and separated it into 2 pull requests
+- 0.5h: Discussed pull request and looked at other issues
+- 1.5h: Meeting to discuss progress in assignment (also coordinate remaining tasks)
+- 0.5h: Improving requirements documentation
+- 1h: Reading karate documentation
+- 2h: Reading and analyzing karate documentation
+- 1h: PR commenting and looking for tests
+- 1h: Discussed requirements.md and improved it
+- 1h: Worked on documentation analysis
+- 0.5h: GitHub documentation, review and push
+- 0.5h: Essence evaluation and reflection
+- 1h: Confusing mess of different parts, description and SEMAT assessment
+- 1h: Writing report according to template
+- 0.5h: Discuss and add experience to report
 
 ## Overview of issue(s) and work done.
 
