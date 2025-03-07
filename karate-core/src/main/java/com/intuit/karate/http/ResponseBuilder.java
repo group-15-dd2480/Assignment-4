@@ -181,7 +181,7 @@ public class ResponseBuilder {
                 }
             }
         }
-        return buildWithStatus(response.getStatus());
+        return buildWithStatus(response.getStatus(), response.getStatusText());
     }
     
     private static byte[] merge(byte[] body, byte[] extra) {
@@ -211,11 +211,11 @@ public class ResponseBuilder {
         } catch (Exception e) {
             logger.error("local resource failed: {} - {}", request, e.toString());
         }
-        return buildWithStatus(200);
+        return buildWithStatus(200, "OK");
     }
     
-    public Response buildWithStatus(int status) {
-        return new Response(status, headers, status == 204 ? null : body, resourceType);
+    public Response buildWithStatus(int status, String statusText) {
+        return new Response(status, statusText, headers, status == 204 ? null : body, resourceType);
     }
     
 }

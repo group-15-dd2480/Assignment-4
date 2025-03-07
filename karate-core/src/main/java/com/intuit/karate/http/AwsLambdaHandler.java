@@ -57,6 +57,7 @@ public class AwsLambdaHandler {
     private static final String BODY = "body";
     private static final String IS_BASE64_ENCODED = "isBase64Encoded";
     private static final String STATUS_CODE = "statusCode";
+    private static final String STATUS_CODE_TEXT = "statusCodeText";
 
     private final ServerHandler handler;
 
@@ -102,6 +103,7 @@ public class AwsLambdaHandler {
         Response response = handler.handle(request);
         Map<String, Object> res = new HashMap(4);
         res.put(STATUS_CODE, response.getStatus());
+        res.put(STATUS_CODE_TEXT, response.getStatusText());
         Map<String, List<String>> responseHeaders = response.getHeaders();
         if (responseHeaders != null) {
             Map<String, String> temp = new HashMap(responseHeaders.size());

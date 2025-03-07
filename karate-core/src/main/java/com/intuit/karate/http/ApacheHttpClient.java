@@ -307,6 +307,7 @@ public class ApacheHttpClient implements HttpClient, HttpRequestInterceptor {
             }
         }
         int statusCode = httpResponse.getStatusLine().getStatusCode();
+        String statusMessage = httpResponse.getStatusLine().getReasonPhrase();
         Map<String, List<String>> headers = toHeaders(httpResponse);
         List<Cookie> storedCookies = cookieStore.getCookies();
         Header[] requestCookieHeaders = httpResponse.getHeaders(HttpConstants.HDR_SET_COOKIE);
@@ -341,7 +342,7 @@ public class ApacheHttpClient implements HttpClient, HttpRequestInterceptor {
         }
         headers.put(HttpConstants.HDR_SET_COOKIE, mergedCookieValues);
         cookieStore.clear();
-        Response response = new Response(statusCode, headers, bytes);
+        Response response = new Response(statusCode, statusMessage, headers, bytes);
         httpLogger.logResponse(getConfig(), request, response);
         return response;
     }

@@ -11,9 +11,11 @@ Given url mockServerUrl + 'cats'
 And request { name: 'Billie' }
 When method postMethod
 Then status 201
+And status text Created
 And match response == { id: '#ignore', name: 'Billie' }
 # And assert responseTime < 1000
 
 Given path response.id
 When method getMethod
 Then status 200
+And status text OK

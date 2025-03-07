@@ -12,6 +12,7 @@ Given path 'cats'
 And request { name: 'Billie' }
 When method post
 Then status 200
+And status text  
 And match response == { id: '#number', name: 'Billie' }
 
 * def id = response.id

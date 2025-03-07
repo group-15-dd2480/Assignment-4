@@ -52,22 +52,24 @@ public class Response implements ProxyObject {
 
     private static final Logger logger = LoggerFactory.getLogger(Response.class);
 
-    public static final Response OK = new Response(200);
+    public static final Response OK = new Response(200, "OK");
 
     private static final String BODY = "body";
     private static final String BODY_BYTES = "bodyBytes";
     private static final String STATUS = "status";
+    private static final String STATUS_TEXT = "statusText";
     private static final String HEADER = "header";
     private static final String HEADERS = "headers";
     private static final String HEADER_VALUES = "headerValues";
     private static final String DATA_TYPE = "dataType";
     private static final String RESPONSE_TIME = "responseTime";
 
-    private static final String[] KEYS = new String[]{STATUS, HEADER, HEADERS, HEADER_VALUES, BODY, DATA_TYPE, BODY_BYTES, RESPONSE_TIME};
+    private static final String[] KEYS = new String[]{STATUS, STATUS_TEXT, HEADER, HEADERS, HEADER_VALUES, BODY, DATA_TYPE, BODY_BYTES, RESPONSE_TIME};
     private static final Set<String> KEY_SET = new HashSet(Arrays.asList(KEYS));
     private static final JsArray KEY_ARRAY = new JsArray(KEYS);
 
     private int status;
+    private String statusText;
     private Map<String, List<String>> headers;
     private Object body;
 
@@ -76,15 +78,21 @@ public class Response implements ProxyObject {
     private long responseTime;
 
     public Response(int status) {
-        this.status = status;
+        this(status, null);
     }
 
-    public Response(int status, Map<String, List<String>> headers, byte[] body) {
-        this(status, headers, body, null);
+    public Response(int status, String statusText) {
+        this.status = status;
+        this.statusText = statusText;
     }
 
-    public Response(int status, Map<String, List<String>> headers, byte[] body, ResourceType resourceType) {
+    public Response(int status, String statusText, Map<String, List<String>> headers, byte[] body) {
+        this(status, statusText, headers, body, null);
+    }
+
+    public Response(int status,String statusText,  Map<String, List<String>> headers, byte[] body, ResourceType resourceType) {
         this.status = status;
+        this.statusText = statusText;
         this.headers = headers;
         this.body = body;
         this.resourceType = resourceType;
@@ -96,6 +104,14 @@ public class Response implements ProxyObject {
 
     public void setStatus(int status) {
         this.status = status;
+    }
+
+    public String getStatusText() {
+        return statusText;
+    }
+
+    public void setStatusText(String statusText) {
+        this.statusText = statusText;
     }
 
     public int getDelay() {
@@ -253,6 +269,8 @@ public class Response implements ProxyObject {
         switch (key) {
             case STATUS:
                 return status;
+            case STATUS_TEXT:
+                return statusText;
             case HEADER:
                 return HEADER_FUNCTION;
             case HEADERS:
@@ -284,6 +302,7 @@ public class Response implements ProxyObject {
     public Map<String, Object> toMap() {
         Map<String, Object> map = new HashMap();
         map.put(STATUS, status);
+        map.put(STATUS_TEXT, statusText);
         map.put(HEADERS, JsonUtils.simplify(headers));
         map.put(BODY, getBodyConverted());
         map.put(RESPONSE_TIME, responseTime);
@@ -309,6 +328,9 @@ public class Response implements ProxyObject {
             case STATUS:
                 status = value.asInt();
                 break;
+            case STATUS_TEXT:
+                statusText = value.asString();
+                break;
             case HEADERS:
                 setHeaders((Map) JsValue.toJava(value));
                 break;
@@ -321,6 +343,9 @@ public class Response implements ProxyObject {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("[status: ").append(status);
+        if (statusText != null) {
+            sb.append(", text: ").append(statusText);
+        }
         sb.append(", responseTime: ").append(responseTime);
         if (resourceType != null && resourceType != ResourceType.BINARY) {
             sb.append(", type: ").append(resourceType);

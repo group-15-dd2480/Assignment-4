@@ -188,6 +188,19 @@ class MockHandlerTest {
         match(response.getBodyConverted(), "{ success: false }");
         match(response.getStatus(), 404);
     }
+    
+    @Test
+    void testResponseStatusText() {
+        background().scenario(
+                "pathMatches('/hello')",
+                "def response = { success: false }",
+                "def responseStatusText = 'Not Found'"
+        );
+        request.path("/hello");
+        handle();
+        match(response.getBodyConverted(), "{ success: false }");
+        match(response.getStatusText(), "Not Found");
+    }
 
     @Test
     void testResponseHeaders() {

@@ -175,7 +175,7 @@ public class RequestCycle {
                 if (valid == null || !valid) {
                     logger.error("unauthorized request: {}", request);
                     response.setStatus(401); // just for logging in finally block
-                    return response().buildWithStatus(401);
+                    return response().buildWithStatus(401, "Unauthorized");
                 }
             }
             if (context.isApi()) {
@@ -194,7 +194,7 @@ public class RequestCycle {
         } catch (Exception e) {
             logger.error("handle failed: {}", e.getMessage());
             response.setStatus(500); // just for logging in finally block
-            return response().buildWithStatus(500);
+            return response().buildWithStatus(500, "Internal Server Error");
         } finally {
             close();
             if (logger.isDebugEnabled()) {
