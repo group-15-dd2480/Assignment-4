@@ -12,6 +12,7 @@
 - A troubleshooting section could be added in order to make it easier to troubleshoot problems.
 - Possibly reducing the amount of links and replacing them with summaries of the content needed from the links could make the documentation easier to read and understand.
 - Could use more code examples to explain instead of long text explanations.
+- Add a section on how to get started if you want to contribute to the project.
 
 ## Is it Sufficient?
 It is mostly sufficient. The ones who could find it insufficient are users inexperienced in the field. The quick start guide and examples videos helps but as Karate got lots of use cases and the documentation is very extensive and possibly difficult to fully grasp, new users could struggle with fully understanding Karate and how to use it. 
